@@ -41,7 +41,7 @@ model <- lm(revenue~networking, rev)
 lm(model)
 summary(model)
 
-predict(model, data.frame(networking = c(275, 300, 325)))
+predict(model, data.frame(networking = c(275, 300, 350)))
 
 # print(rev_network)
 # colnames(rev_network)
