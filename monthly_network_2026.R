@@ -31,14 +31,15 @@ ds$date <- as.Date(ds$date, format = "%Y-%m-%d")
 
 # set filter
 
-# ds <- ds %>% 
+# ds <- ds %>%
+#   mutate(month = month(date)) %>% 
 #   filter(month %in% c(4,5,6,7,8,9,10))
 # 
 # ds <- ds %>%
 #   filter(revenue >= 5000)
 # 
 # ds <- ds %>%
-#   filter(date >= as.Date("2025-01-01"))
+#   filter(date >= as.Date("2025-02-01"))
 
 ds %>% 
   ggplot(aes(x = date, y = revenue)) +
