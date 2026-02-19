@@ -57,7 +57,23 @@ ds %>%
 model <- lm(revenue ~ realtors, ds)
 coef(model)
 summary(model)
+
+#how to extract p-value
+summary(model)$coefficients["realtors", "Pr(>|t|)"]
+coef(summary(model))[2,4]
+f <- summary(model)$fstatistic
+pf(f[1], f[2], f[3], lower.tail = FALSE)
+s <- summary(model)
+p_coef <- coef(s)[2,4]
+p_model <- pf(s$fstatistic[1],
+              s$fstatistic[2],
+              s$fstatistic[3],
+              lower.tail = FALSE)
+p_value <- round((p_coef), 4)
+
 plot(model)
+
+
 
 new_realtors <- data.frame(realtors = c(130, 140, 150))
 predict (model, new_realtors)
@@ -70,7 +86,8 @@ r2_rounded <- round(r2, 2)
 intercept <- format(model$coefficients[1], digits = 7)
 slope <- format(model$coefficients[2], digits = 4)
 
-formula <- glue("y={slope}X + {intercept}\n R^2 = {r2_rounded}")
+# formula <- glue("y={slope}X + {intercept}\n R^2 = {r2_rounted}")
+formula <- glue("y={slope}X + {intercept}\n p-value = {p_value}")
 
 monthly <- ds %>% 
   mutate(
@@ -101,4 +118,6 @@ ggplot(monthly, aes(x = realtors, y = revenue)) +
   )
 
 ggsave("monthly_revenue_realtors.png")
+
+
 
